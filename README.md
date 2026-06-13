@@ -12,15 +12,18 @@ edit `sudo nano /etc/systemd/system/razer-audio.service`
 
 ```sh
 [Unit]
-Description=Razer Blade Audio Fix
-After=multi-user.target suspend.target hibernate.target hybrid-sleep.target
+Description=Razer Blade 15 Audio Fix
+After=multi-user.target suspend.target hibernate.target hybrid-sleep.target sound.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/local/bin/razer-blade-15-rz09-audio.sh
+ExecStartPre=/bin/sleep 2
+ExecStart=/bin/bash /usr/local/bin/razer-blade-15-rz09-audio.sh
 
 [Install]
 WantedBy=multi-user.target suspend.target hibernate.target hybrid-sleep.target
 ```
 
 run `sudo systemctl daemon-reload`
+run `sudo systemctl enable razer-audio.service`
+run `sudo systemctl start razer-audio.service`
